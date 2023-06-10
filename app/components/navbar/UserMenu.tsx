@@ -4,10 +4,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu, AiOutlineGlobal } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
 
 export default function UserMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  const registerModal = useRegisterModal();
 
   const handleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -41,8 +44,6 @@ export default function UserMenu() {
         </div>
         <button
           className="hidden md:block hover:bg-neutral-100 rounded-full p-3 mr-2
-
-
         ">
           <AiOutlineGlobal size="20" />
         </button>
@@ -86,7 +87,7 @@ export default function UserMenu() {
           <div className="flex flex-col cursor-pointer">
             <>
               <MenuItem label="Login" />
-              <MenuItem label="Sign up" />
+              <MenuItem label="Sign up" onClick={registerModal.onOpen} />
               <hr />
               <MenuItem label="Airbnb your home" />
               <MenuItem label="Help" />
