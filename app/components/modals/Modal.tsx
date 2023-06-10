@@ -70,6 +70,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <div
+        onClick={(e) => handleClose()}
         className="
           justify-center 
           items-center 
@@ -95,7 +96,8 @@ const Modal: React.FC<ModalProps> = ({
           h-full 
           lg:h-auto
           md:h-auto
-          ">
+          "
+          onClick={(e) => e.stopPropagation()}>
           {/*content*/}
           <div
             className={`
