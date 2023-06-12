@@ -27,6 +27,7 @@ export default async function getCurrentUser() {
       ...currentUser,
       createdAt: currentUser.createdAt.toLocaleString('en-GB', { timeZone: 'UTC' }),
       updatedAt: currentUser.updatedAt.toLocaleString('en-GB', { timeZone: 'UTC' }),
+      emailVerified: currentUser.emailVerified?.toLocaleString('en-GB', { timeZone: 'UTC' }) || null,
     };
   } catch (error: any) {
     return null;

@@ -7,8 +7,8 @@ import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
+import { User } from '@/app/types';
 
 interface IUserMenu {
   currentUser: User | null;
@@ -78,7 +78,7 @@ export default function UserMenu({ currentUser }: IUserMenu) {
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={null} />
+            <Avatar src={currentUser?.image} />
           </div>
         </button>
       </div>
