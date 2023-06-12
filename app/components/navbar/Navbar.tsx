@@ -3,8 +3,12 @@ import Container from '../Container';
 import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
+import { User } from '@/app/types';
 
-export default function Navbar() {
+interface INavbar {
+  currentUser: User | null;
+}
+export default function Navbar({ currentUser }: INavbar) {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div
@@ -24,7 +28,7 @@ export default function Navbar() {
       ">
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
