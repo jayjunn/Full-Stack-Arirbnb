@@ -9,6 +9,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
 import { User } from '@/app/types';
+import useRentModal from "@/app/hooks/useRentModal'";
 
 interface IUserMenu {
   currentUser: User | null;
@@ -20,10 +21,9 @@ export default function UserMenu({ currentUser }: IUserMenu) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(currentUser);
-
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   const handleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -52,7 +52,8 @@ export default function UserMenu({ currentUser }: IUserMenu) {
         hover:bg-neutral-100 
         transition 
         cursor-pointer
-      ">
+      "
+          onClick={rentModal.onOpen}>
           Airbnb your home
         </div>
         <button
@@ -105,7 +106,7 @@ export default function UserMenu({ currentUser }: IUserMenu) {
                   <MenuItem label="My favorites" onClick={() => router.push('/favorites')} />
                   <MenuItem label="My reservations" onClick={() => router.push('/reservations')} />
                   <MenuItem label="My properties" onClick={() => router.push('/properties')} />
-                  {/* <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} /> */}
+                  <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                   <hr />
                   <MenuItem label="Logout" onClick={() => signOut()} />
                 </>
