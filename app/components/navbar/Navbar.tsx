@@ -4,6 +4,7 @@ import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
 import { User } from '@/app/types';
+import Categories from './Categories';
 
 interface INavbar {
   currentUser: User | null;
@@ -32,7 +33,7 @@ export default function Navbar({ currentUser }: INavbar) {
           </div>
         </Container>
       </div>
-      {/* <Categories /> */}
+      <Categories />
     </div>
   );
 }
