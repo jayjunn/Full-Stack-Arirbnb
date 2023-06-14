@@ -8,8 +8,6 @@ const Home = async () => {
   const listings = await getListings();
   const currentUser = await getCurrentUser();
 
-  console.log(listings);
-
   if (listings.length === 0) {
     return (
       <>

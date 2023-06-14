@@ -3,14 +3,15 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
-
 import useCountries from '@/app/hooks/useCountries';
-import { Listing, User } from '@/app/types';
-
+import { Listing, User, Reservation } from '@/app/types';
+import { format } from 'date-fns';
+import HeartButton from '../HeartButton';
 import Button from '../Button';
 
 interface IListingCard {
   data: Listing;
+  reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -18,7 +19,7 @@ interface IListingCard {
   currentUser?: User | null;
 }
 
-const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', currentUser }: IListingCard) => {
+const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', currentUser, reservation }: IListingCard) => {
   const router = useRouter();
   const { getByValue } = useCountries();
 
@@ -37,24 +38,16 @@ const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', cur
     [disabled, onAction, actionId]
   );
 
-  //   const price = useMemo(() => {
-  //     if (reservation) {
-  //       return reservation.totalPrice;
-  //     }
+  const reservationDate = useMemo(() => {
+    if (!reservation) {
+      return null;
+    }
 
-  //     return data.price;
-  //   }, [reservation, data.price]);
+    const start = new Date(reservation.startDate);
+    const end = new Date(reservation.endDate);
 
-  //   const reservationDate = useMemo(() => {
-  //     if (!reservation) {
-  //       return null;
-  //     }
-
-  //     const start = new Date(reservation.startDate);
-  //     const end = new Date(reservation.endDate);
-
-  //     return `${format(start, 'PP')} - ${format(end, 'PP')}`;
-  //   }, [reservation]);
+    return `${format(start, 'PP')} - ${format(end, 'PP')}`;
+  }, [reservation]);
 
   return (
     <div onClick={() => router.push(`/listings/${data.id}`)} className="col-span-1 cursor-pointer group">
@@ -79,19 +72,19 @@ const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', cur
             src={data.imageSrc}
             alt="Listing"
           />
-          {/* <div
+          <div
             className="
             absolute
             top-3
             right-3
           ">
             <HeartButton listingId={data.id} currentUser={currentUser} />
-          </div> */}
+          </div>
         </div>
         <div className="font-semibold text-lg">
           {location?.label}, {location?.region}
         </div>
-        {/* <div className="font-light text-neutral-500">{reservationDate || data.category}</div> */}
+        <div className="font-light text-neutral-500">{reservationDate || data.category}</div>
         <div className="flex flex-row items-center gap-1">
           <div className="flex">
             <h3 className="font-semibold">$ {data.price}</h3>
