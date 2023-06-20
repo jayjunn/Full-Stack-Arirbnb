@@ -1,4 +1,6 @@
 import prisma from '@/app/libs/prismadb';
+import getCurrentUser from './getCurrentUser';
+import { NextResponse } from 'next/server';
 
 const getListings = async () => {
   try {
@@ -15,4 +17,29 @@ const getListings = async () => {
   }
 };
 
-export default getListings;
+const getFavoriteListings = async () => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) {
+      return [];
+    }
+
+    const favorites = await prisma.listing.findMany({
+      where: {
+        id: {
+          in: [...currentUser.favoriteIds],
+        },
+      },
+    });
+    const mappedFavorites = favorites.map((favorites) => ({
+      ...favorites,
+      createdAt: favorites.createdAt.toLocaleString('en-GB', { timeZone: 'UTC' }),
+    }));
+    return mappedFavorites;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export { getListings, getFavoriteListings };

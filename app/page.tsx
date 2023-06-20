@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import getListings from './actions/list';
 import Container from './components/Container';
 import ListingCard from './components/listings/ListingCard';
 import getCurrentUser from './actions/getCurrentUser';
+import { getListings } from './actions/list';
+import ClientOnly from './components/ClientOnly';
 
 const Home = async () => {
   const listings = await getListings();
@@ -16,9 +17,10 @@ const Home = async () => {
     );
   }
   return (
-    <Container>
-      <div
-        className="
+    <ClientOnly>
+      <Container>
+        <div
+          className="
             pt-24
             grid 
             grid-cols-1 
@@ -29,11 +31,12 @@ const Home = async () => {
             2xl:grid-cols-6
             gap-8
           ">
-        {listings.map((listing) => (
-          <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
-        ))}
-      </div>
-    </Container>
+          {listings.map((listing) => (
+            <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
+          ))}
+        </div>
+      </Container>
+    </ClientOnly>
   );
 };
 export default Home;
