@@ -10,7 +10,7 @@ interface IListingHead {
   imageSrc: string;
   locationValue: string;
   id: string;
-  currentUser: User | null;
+  currentUser?: User | null;
 }
 export default function ListingHead({ title, imageSrc, locationValue, id, currentUser }: IListingHead) {
   const { getByValue } = useCountries();

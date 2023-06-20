@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-
 import Button from './Button';
 import Heading from './Heading';
+import ClientOnly from './ClientOnly';
 
 interface IEmptyState {
   title?: string;
@@ -14,8 +14,9 @@ interface IEmptyState {
 const EmptyState = ({ title = 'No exact matches', subtitle = 'Try changing or removing some of your filters.', showReset = false }: IEmptyState) => {
   const router = useRouter();
   return (
-    <div
-      className="
+    <ClientOnly>
+      <div
+        className="
         h-[60vh]
         flex 
         flex-col 
@@ -23,9 +24,10 @@ const EmptyState = ({ title = 'No exact matches', subtitle = 'Try changing or re
         justify-center 
         items-center 
       ">
-      <Heading center title={title} subtitle={subtitle} />
-      <div className="w-48 mt-4">{showReset && <Button outline label="Remove all filters" onClick={() => router.push('/')} />}</div>
-    </div>
+        <Heading center title={title} subtitle={subtitle} />
+        <div className="w-48 mt-4">{showReset && <Button outline label="Remove all filters" onClick={() => router.push('/')} />}</div>
+      </div>
+    </ClientOnly>
   );
 };
 

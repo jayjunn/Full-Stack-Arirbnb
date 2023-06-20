@@ -19,7 +19,7 @@ interface ListingInfoProps {
   guestCount: number;
   roomCount: number;
   bathroomCount: number;
-  categoryLabel: string;
+  categoryLabel: string | undefined;
   locationValue: string;
 }
 
