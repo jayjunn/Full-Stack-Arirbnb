@@ -32,14 +32,46 @@ const getFavoriteListings = async () => {
         },
       },
     });
+
     const mappedFavorites = favorites.map((favorites) => ({
       ...favorites,
       createdAt: favorites.createdAt.toLocaleString('en-GB', { timeZone: 'UTC' }),
     }));
+
     return mappedFavorites;
   } catch (error: any) {
     throw new Error(error);
   }
 };
 
-export { getListings, getFavoriteListings };
+const getListingById = async (listingId?: string) => {
+  try {
+    const listing = await prisma.listing.findUnique({
+      where: {
+        id: listingId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    if (!listing) {
+      return null;
+    }
+    const mappedListing = {
+      ...listing,
+      createdAt: listing?.createdAt.toString(),
+      user: {
+        ...listing?.user,
+        createdAt: listing?.user.createdAt.toString(),
+        updatedAt: listing?.user.updatedAt.toString(),
+        emailVerified: listing?.user.emailVerified?.toString() || null,
+      },
+    };
+    return mappedListing ? mappedListing : null;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export { getListings, getFavoriteListings, getListingById };

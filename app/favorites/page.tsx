@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '../components/Container';
 import Heading from '../components/Heading';
-import { getFavoriteListings } from '../actions/list';
+import { getFavoriteListings } from '../actions/getList';
 import ListingCard from '../components/listings/ListingCard';
 import getCurrentUser from '../actions/getCurrentUser';
 import EmptyState from '../components/EmptyState';

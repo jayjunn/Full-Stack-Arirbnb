@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Container from './components/Container';
 import ListingCard from './components/listings/ListingCard';
 import getCurrentUser from './actions/getCurrentUser';
-import { getListings } from './actions/list';
+import { getListings } from './actions/getList';
 import ClientOnly from './components/ClientOnly';
 
 const Home = async () => {
