@@ -1,10 +1,21 @@
 import prisma from '@/app/libs/prismadb';
 import getCurrentUser from './getCurrentUser';
 import { NextResponse } from 'next/server';
+import { useId } from 'react';
 
-const getListings = async () => {
+export interface IListing {
+  userId?: string;
+}
+const getListings = async ({ userId }: IListing) => {
   try {
+    let query: any = {};
+
+    if (userId) {
+      query.userId = userId;
+    }
+
     const listings = await prisma.listing.findMany({
+      where: query,
       orderBy: {
         createdAt: 'desc',
       },
@@ -45,6 +56,7 @@ const getFavoriteListings = async () => {
 };
 
 const getListingById = async (listingId?: string) => {
+  console.log(listingId);
   try {
     const listing = await prisma.listing.findUnique({
       where: {
@@ -58,6 +70,7 @@ const getListingById = async (listingId?: string) => {
     if (!listing) {
       return null;
     }
+
     const mappedListing = {
       ...listing,
       createdAt: listing?.createdAt.toString(),

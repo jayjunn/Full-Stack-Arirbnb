@@ -69,6 +69,8 @@ const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', cur
               group-hover:scale-110 
               transition
             "
+            priority={true}
+            sizes="100%"
             src={data.imageSrc}
             alt="Listing"
           />

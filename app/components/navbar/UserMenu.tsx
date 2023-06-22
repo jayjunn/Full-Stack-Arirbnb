@@ -29,6 +29,14 @@ export default function UserMenu({ currentUser }: IUserMenu) {
     setIsOpen((value) => !value);
   }, []);
 
+  const handleMenuClick = useCallback(
+    (path: string) => {
+      router.push(path);
+      setIsOpen(false);
+    },
+    [router]
+  );
+
   useEffect(() => {
     const handleOutsideClose = (e: { target: any }) => {
       if (isOpen && !menuRef?.current?.contains(e.target)) setIsOpen(false);
@@ -102,10 +110,10 @@ export default function UserMenu({ currentUser }: IUserMenu) {
             {currentUser ? (
               <>
                 <>
-                  <MenuItem label="My trips" onClick={() => router.push('/trips')} />
-                  <MenuItem label="My favorites" onClick={() => router.push('/favorites')} />
-                  <MenuItem label="My reservations" onClick={() => router.push('/reservations')} />
-                  <MenuItem label="My properties" onClick={() => router.push('/properties')} />
+                  <MenuItem label="My trips" onClick={() => handleMenuClick('/trips')} />
+                  <MenuItem label="My favorites" onClick={() => handleMenuClick('/favorites')} />
+                  <MenuItem label="My reservations" onClick={() => handleMenuClick('/reservations')} />
+                  <MenuItem label="My properties" onClick={() => handleMenuClick('/properties')} />
                   <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                   <hr />
                   <MenuItem label="Logout" onClick={() => signOut()} />

@@ -8,12 +8,19 @@ interface IParams {
 
 const getReservations = async (params: IParams) => {
   try {
-    const { listingId } = params;
+    const { listingId, userId, authorId } = params;
 
-    const query: any = {};
+    let query: any = {};
 
     if (listingId) {
       query.listingId = listingId;
+    }
+
+    if (userId) {
+      query.userId = userId;
+    }
+    if (authorId) {
+      query.listing = { userId: authorId };
     }
 
     const reservations = await prisma.reservation.findMany({
@@ -25,6 +32,11 @@ const getReservations = async (params: IParams) => {
         createdAt: 'desc',
       },
     });
+    console.log(reservations);
+
+    if (!reservations) {
+      return [];
+    }
 
     const mappedReservations = reservations.map((reservation) => ({
       ...reservation,
@@ -38,6 +50,7 @@ const getReservations = async (params: IParams) => {
     }));
 
     return mappedReservations;
+    return [];
   } catch (error: any) {
     throw new Error(error);
   }

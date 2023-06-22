@@ -60,7 +60,6 @@ const ListingClient = ({ listing, reservations = [], currentUser }: IListingClie
       return loginModal.onOpen();
     }
     setIsLoading(true);
-
     axios
       .post('/api/reservations', {
         totalPrice,
