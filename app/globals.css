@@ -16,3 +16,34 @@ body,
 .rdrMonth {
   width: 100% !important;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #a6a6a6 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #a6a6a6;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
+*::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #a6a6a6;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
