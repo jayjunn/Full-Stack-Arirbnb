@@ -17,9 +17,10 @@ interface IListingCard {
   actionLabel?: string;
   actionId?: string;
   currentUser?: User | null;
+  showHeart?: boolean;
 }
 
-const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', currentUser, reservation }: IListingCard) => {
+const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', currentUser, reservation, showHeart = true }: IListingCard) => {
   const router = useRouter();
   const { getByValue } = useCountries();
 
@@ -74,14 +75,11 @@ const ListingCard = ({ data, onAction, disabled, actionLabel, actionId = '', cur
             src={data.imageSrc}
             alt="Listing"
           />
-          <div
-            className="
-            absolute
-            top-3
-            right-3
-          ">
-            <HeartButton listingId={data.id} currentUser={currentUser} />
-          </div>
+          {showHeart && (
+            <div className=" absolute top-3 right-3">
+              <HeartButton listingId={data.id} currentUser={currentUser} />
+            </div>
+          )}
         </div>
         <div className="font-semibold text-lg">
           {location?.label}, {location?.region}
