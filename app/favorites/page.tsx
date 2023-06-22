@@ -11,8 +11,12 @@ export default async function Favorites() {
   const listings = await getFavoriteListings();
   const currentUser = await getCurrentUser();
 
-  if (!listings) {
-    return <EmptyState />;
+  if (listings.length === 0) {
+    return (
+      <ClientOnly>
+        <EmptyState title="No favorites found" subtitle="Looks like you have no favorite listings." />
+      </ClientOnly>
+    );
   }
 
   return (

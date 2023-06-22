@@ -17,7 +17,6 @@ export async function DELETE(request: Request, { params }: { params: IParams }) 
   const { listingId } = params;
 
   if (!listingId || typeof listingId !== 'string') {
-    console.log('user is not matched');
     throw new Error('Invalid ID');
   }
 

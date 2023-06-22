@@ -9,7 +9,6 @@ interface IParams {
 const getReservations = async (params: IParams) => {
   try {
     const { listingId, userId, authorId } = params;
-
     let query: any = {};
 
     if (listingId) {
@@ -32,7 +31,6 @@ const getReservations = async (params: IParams) => {
         createdAt: 'desc',
       },
     });
-    console.log(reservations);
 
     if (!reservations) {
       return [];
@@ -50,7 +48,6 @@ const getReservations = async (params: IParams) => {
     }));
 
     return mappedReservations;
-    return [];
   } catch (error: any) {
     throw new Error(error);
   }
