@@ -2,18 +2,23 @@ import Image from 'next/image';
 import Container from './components/Container';
 import ListingCard from './components/listings/ListingCard';
 import getCurrentUser from './actions/getCurrentUser';
-import { getListings } from './actions/getList';
+import { IListing, getListings } from './actions/getList';
 import ClientOnly from './components/ClientOnly';
+import EmptyState from './components/EmptyState';
+interface IParams {
+  searchParams: IListing;
+}
 
-const Home = async () => {
-  const listings = await getListings({});
+const Home = async ({ searchParams }: IParams) => {
+  const listings = await getListings(searchParams);
+  console.log(searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
     return (
-      <>
-        <div>no items</div>
-      </>
+      <ClientOnly>
+        <EmptyState showReset />
+      </ClientOnly>
     );
   }
   return (

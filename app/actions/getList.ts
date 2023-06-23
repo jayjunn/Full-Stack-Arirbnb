@@ -1,17 +1,70 @@
 import prisma from '@/app/libs/prismadb';
 import getCurrentUser from './getCurrentUser';
 import { NextResponse } from 'next/server';
-import { useId } from 'react';
 
 export interface IListing {
   userId?: string;
+  category?: string;
+  roomCount?: number;
+  guestCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
 }
-const getListings = async ({ userId }: IListing) => {
+const getListings = async ({ userId, category, roomCount, guestCount, bathroomCount, startDate, endDate, locationValue }: IListing) => {
   try {
     let query: any = {};
 
+    console.log(query);
+
     if (userId) {
       query.userId = userId;
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    if (roomCount) {
+      query.roomCount = {
+        gte: +roomCount,
+      };
+    }
+
+    if (guestCount) {
+      query.guestCount = {
+        gte: +guestCount,
+      };
+    }
+
+    if (startDate && endDate) {
+      query.NOT = {
+        reservations: {
+          some: {
+            OR: [
+              {
+                endDate: { gte: startDate },
+                startDate: { lte: startDate },
+              },
+              {
+                startDate: { lte: endDate },
+                endDate: { gte: endDate },
+              },
+            ],
+          },
+        },
+      };
+    }
+
+    if (bathroomCount) {
+      query.bathroomCount = {
+        gte: +bathroomCount,
+      };
+    }
+
+    if (locationValue) {
+      query.locationValue = locationValue;
     }
 
     const listings = await prisma.listing.findMany({
