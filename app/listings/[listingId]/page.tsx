@@ -1,6 +1,5 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import { getListingById } from '@/app/actions/getList';
-import ClientOnly from '@/app/components/ClientOnly';
 import EmptyState from '@/app/components/EmptyState';
 import ListingClient from './ListingClient';
 import { getReservations } from '@/app/actions/getReservations';
@@ -18,9 +17,5 @@ export default async function Listing({ params }: { params: IParams }) {
     return <EmptyState />;
   }
 
-  return (
-    <ClientOnly>
-      <ListingClient listing={listing} currentUser={currentUser} reservations={reservations} />
-    </ClientOnly>
-  );
+  return <ListingClient listing={listing} currentUser={currentUser} reservations={reservations} />;
 }

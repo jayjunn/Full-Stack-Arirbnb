@@ -5,11 +5,14 @@ import { useMemo } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { differenceInDays } from 'date-fns';
 
-import useSearchModal from '@/app/hooks/useSearchModal';
+import useSearchModal, { searchModalState } from '@/app/hooks/useSearchModal';
 import useCountries from '@/app/hooks/useCountries';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const Search = () => {
   const searchModal = useSearchModal();
+  //   const setSearchModalState = useSetRecoilState(searchModalState);
+  //   const SearchModalState = useRecoilValue(searchModalState);
   const params = useSearchParams();
   const { getByValue } = useCountries();
 

@@ -5,26 +5,20 @@ import { getFavoriteListings } from '../actions/getList';
 import ListingCard from '../components/listings/ListingCard';
 import getCurrentUser from '../actions/getCurrentUser';
 import EmptyState from '../components/EmptyState';
-import ClientOnly from '../components/ClientOnly';
 
 export default async function Favorites() {
   const listings = await getFavoriteListings();
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
-    return (
-      <ClientOnly>
-        <EmptyState title="No favorites found" subtitle="Looks like you have no favorite listings." />
-      </ClientOnly>
-    );
+    return <EmptyState title="No favorites found" subtitle="Looks like you have no favorite listings." />;
   }
 
   return (
-    <ClientOnly>
-      <Container>
-        <Heading title={'Favorites'} subtitle="List of places you have favorited" />
-        <div
-          className="
+    <Container>
+      <Heading title={'Favorites'} subtitle="List of places you have favorited" />
+      <div
+        className="
           mt-10
           grid 
           grid-cols-1 
@@ -35,11 +29,10 @@ export default async function Favorites() {
           2xl:grid-cols-6
           gap-8
         ">
-          {listings.map((listing: any) => (
-            <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
-          ))}
-        </div>
-      </Container>
-    </ClientOnly>
+        {listings.map((listing: any) => (
+          <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
+        ))}
+      </div>
+    </Container>
   );
 }

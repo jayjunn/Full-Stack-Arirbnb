@@ -16,8 +16,6 @@ const getListings = async ({ userId, category, roomCount, guestCount, bathroomCo
   try {
     let query: any = {};
 
-    console.log(query);
-
     if (userId) {
       query.userId = userId;
     }
@@ -109,7 +107,6 @@ const getFavoriteListings = async () => {
 };
 
 const getListingById = async (listingId?: string) => {
-  console.log(listingId);
   try {
     const listing = await prisma.listing.findUnique({
       where: {

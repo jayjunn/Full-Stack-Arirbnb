@@ -3,7 +3,6 @@ import Container from './components/Container';
 import ListingCard from './components/listings/ListingCard';
 import getCurrentUser from './actions/getCurrentUser';
 import { IListing, getListings } from './actions/getList';
-import ClientOnly from './components/ClientOnly';
 import EmptyState from './components/EmptyState';
 interface IParams {
   searchParams: IListing;
@@ -11,21 +10,15 @@ interface IParams {
 
 const Home = async ({ searchParams }: IParams) => {
   const listings = await getListings(searchParams);
-  console.log(searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
-    return (
-      <ClientOnly>
-        <EmptyState showReset />
-      </ClientOnly>
-    );
+    return <EmptyState showReset />;
   }
   return (
-    <ClientOnly>
-      <Container>
-        <div
-          className="
+    <Container>
+      <div
+        className="
             pt-24
             grid 
             grid-cols-1
@@ -36,12 +29,11 @@ const Home = async ({ searchParams }: IParams) => {
             xl:grid-cols-5
             2xl:grid-cols-6
             gap-8 ">
-          {listings.map((listing) => (
-            <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
-          ))}
-        </div>
-      </Container>
-    </ClientOnly>
+        {listings.map((listing) => (
+          <ListingCard currentUser={currentUser} key={listing.id} data={listing} />
+        ))}
+      </div>
+    </Container>
   );
 };
 export default Home;

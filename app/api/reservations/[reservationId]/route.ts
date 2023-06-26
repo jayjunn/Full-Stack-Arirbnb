@@ -9,8 +9,6 @@ interface IParams {
 
 export const DELETE = async (request: Request, { reservationId }: IParams) => {
   const currentUser = await getCurrentUser();
-  console.log('reservationId', reservationId);
-
   if (!currentUser) {
     return NextResponse.error();
   }

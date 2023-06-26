@@ -1,3 +1,4 @@
+import { atom } from 'recoil';
 import { create } from 'zustand';
 
 interface SearchModalStore {
@@ -11,5 +12,10 @@ const useSearchModal = create<SearchModalStore>((set) => ({
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
+
+export const searchModalState = atom({
+  key: 'searchModalState',
+  default: false,
+});
 
 export default useSearchModal;
