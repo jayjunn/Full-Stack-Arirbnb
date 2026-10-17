@@ -2,8 +2,8 @@
 
 import axios from 'axios';
 import { AiFillGithub } from 'react-icons/ai';
-import bcrypt from 'bcrypt';
 import { FcGoogle } from 'react-icons/fc';
+
 import { useCallback, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';

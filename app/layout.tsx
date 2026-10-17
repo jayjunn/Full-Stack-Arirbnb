@@ -1,4 +1,6 @@
+import { Suspense } from 'react';
 import RegisterModal from './components/modals/RegisterModal';
+
 import Navbar from './components/navbar/Navbar';
 import './globals.css';
 import { Nunito } from 'next/font/google';
@@ -24,7 +26,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ReactQueryProvider>
           <ToasterProvider />
           <LoginModal />
-          <SearchModal />
+          <Suspense fallback={null}>
+            <SearchModal />
+          </Suspense>
           <RegisterModal />
           <RentModal />
           <Navbar currentUser={currentUser} />

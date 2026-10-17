@@ -9,10 +9,13 @@ interface IDatePicker {
   disabledDates?: Date[];
 }
 
+const DateRangePicker = DateRange as unknown as React.ComponentType<any>;
+
 const DatePicker = ({ value, onChange, disabledDates }: IDatePicker) => {
   return (
-    <DateRange
+    <DateRangePicker
       rangeColors={['#262626']}
+
       ranges={[value]}
       date={new Date()}
       onChange={onChange}

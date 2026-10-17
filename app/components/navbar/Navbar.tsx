@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Container from '../Container';
 import Logo from './Logo';
 import Search from './Search';
@@ -28,12 +28,17 @@ export default function Navbar({ currentUser }: INavbar) {
         md:gap-0
       ">
             <Logo />
-            <Search />
+            <Suspense fallback={<div className="w-full md:w-auto py-2 h-10" />}>
+              <Search />
+            </Suspense>
             <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
-      <Categories />
+      <Suspense fallback={null}>
+        <Categories />
+      </Suspense>
     </div>
   );
 }
+
